@@ -1,6 +1,7 @@
 package com.example;
 import java.util.*;
 
+
 public class Tictactoe {
 	
 	public static void main(String[] args) {
@@ -8,7 +9,10 @@ public class Tictactoe {
 		char[] board = initializeBoard();
 		choosecoin();
 		showBoard(board);
+		makeMove(board);
 	}
+	
+	public static char currentTurn = 'X';
 	
 	
 	public static char[] initializeBoard() { 
@@ -31,11 +35,40 @@ public class Tictactoe {
 			System.out.println("The computer has chosen : O ");
 		}
 	}
-	public static void showBoard(char[] showBoard) {
-		for (int i = 0; i < 10; i++) { 
-           
-            System.out.println("Board position : "+showBoard[i]);
-    }
+	public static void showBoard(char[] board) {
+		  
+            System.out.println("\n "+board[1]+ " | "+board[2]+ " | "+board[3]);
+            System.out.println("-----------");
+            System.out.println(" "+board[4]+ " | "+board[5]+ " | "+board[6]);
+            System.out.println("-----------");
+            System.out.println(" "+board[7]+ " | "+board[8]+ " | "+board[9]);
+    	
+		
+	}
+	
+	public static char turn() {
+	    if (currentTurn == 'X') {
+	        currentTurn = 'O';
+	    } else {
+	        currentTurn = 'X';
+	    }
+	    return currentTurn;
+	}
+	
+	public static void makeMove(char[] board) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Your move :");
+		int i=0;
+		int move = sc.nextInt();
+		System.out.println("You have moved to your location: " + move);
+		
+		if(board[i]==' ') {
+			board[i]=turn();
+		}
+		else {
+			System.out.println("Invalid entry");
+		}
+		
 		
 	}
 
