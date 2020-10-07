@@ -7,7 +7,6 @@ public class Tictactoe {
 		char[] board = initializeBoard();
 	}
 	
-	//private static char[] board = new char[10];
 	
 	public static char[] initializeBoard() { 
 		char[] board = new char[10];
