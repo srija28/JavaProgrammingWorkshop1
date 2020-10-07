@@ -1,4 +1,5 @@
 package com.example;
+import java.util.Random;
 import java.util.*;
 
 
@@ -9,14 +10,11 @@ public class Tictactoe {
 	public static void main(String[] args) {
 		System.out.println("Welcome to TicTacToe");
 		char[] board = initializeBoard();
+		toss();
 		choosecoin();
 		showBoard(board);
 		makeMove(board);
 	}
-	
-	public static char currentTurn = 'X';
-	
-	
 	public static char[] initializeBoard() { 
 		char[] board = new char[10];
 	    for (int i = 0; i < board.length; i++) { 
@@ -32,11 +30,35 @@ public class Tictactoe {
 		System.out.println("The player has chosen : "+player);
 		if(player=='0') {
 			System.out.println("The computer has chosen : X ");
+			player='X';
 		}
 		else {
 			System.out.println("The computer has chosen : O ");
+			
 		}
 	}
+	
+	public static void toss() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Choose heads or tails 1 for heads and 2 for tails");
+		int chosen = sc.nextInt();
+		 Random r = new Random();
+		 System.out.println(r);
+		   int chance = r.nextInt(2);
+		   if (chance == 1) {
+		      System.out.println("You flipped tails");
+		   } else {
+			   System.out.println("You flipped heads");
+		   }
+		   if(chosen==chance) {
+			   System.out.println("the Player won the toss");
+		   }
+		   else {
+			   System.out.println("The computer win the toss");
+		   }
+		
+	}
+	
 	public static void showBoard(char[] board) {
 		  
             System.out.println("\n "+board[1]+ " | "+board[2]+ " | "+board[3]);
@@ -65,5 +87,6 @@ public class Tictactoe {
 		showBoard(board);
 		
 	}
+	
 
 }
