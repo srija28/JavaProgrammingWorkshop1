@@ -3,6 +3,8 @@ import java.util.*;
 
 
 public class Tictactoe {
+	char[] board = new char[10];
+	static char player = 'X';
 	
 	public static void main(String[] args) {
 		System.out.println("Welcome to TicTacToe");
@@ -46,29 +48,21 @@ public class Tictactoe {
 		
 	}
 	
-	public static char turn() {
-	    if (currentTurn == 'X') {
-	        currentTurn = 'O';
-	    } else {
-	        currentTurn = 'X';
-	    }
-	    return currentTurn;
-	}
-	
 	public static void makeMove(char[] board) {
+		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Your move :");
-		int i=0;
+		int i;
 		int move = sc.nextInt();
-		System.out.println("You have moved to your location: " + move);
 		
-		if(board[i]==' ') {
-			board[i]=turn();
+		System.out.println("You have moved to your location: " + move);
+		if(board[move]==' ') {
+			board[move]= player;
 		}
 		else {
 			System.out.println("Invalid entry");
 		}
-		
+		showBoard(board);
 		
 	}
 
