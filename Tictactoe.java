@@ -4,7 +4,7 @@ import java.util.*;
 
 
 public class Tictactoe {
-	char[] board = new char[10];
+	static char[] board = new char[10];
 	static char player = 'X';
 	
 	public static void main(String[] args) {
@@ -14,7 +14,36 @@ public class Tictactoe {
 		choosecoin();
 		showBoard(board);
 		makeMove(board);
-	}
+		
+		if((board[1] == 'X' && board[2] =='X' && board[3]=='X')||(board[1] == '0' && board[2] =='0' && board[3]=='0')) {
+			System.out.println("you win");	
+		}
+		else if((board[1] == 'X' && board[4] =='X' && board[7]=='X')||(board[1] == '0' && board[4] =='0' && board[7]=='0')){
+			System.out.println("you win");		
+		}
+		else if((board[1] == 'X' && board[5] =='X' && board[9]=='X')||(board[1] == '0' && board[5] =='0' && board[9]=='0')) {
+			System.out.println("you win");	
+		}
+		else if((board[3] == 'X' && board[5] =='X' && board[7]=='X')||(board[3] == '0' && board[5] =='0' && board[7]=='0')) {
+			System.out.println("you win");	
+		}
+		else if((board[2] == 'X' && board[5] =='X' && board[8]=='X')||(board[2] == '0' && board[5] =='0' && board[8]=='0')) {
+			System.out.println("you win");	
+		}
+		else if((board[3] == 'X' && board[6] =='X' && board[9]=='X')||(board[3] == '0' && board[6] =='0' && board[9]=='0')) {
+			System.out.println("you win");	
+		}
+		else if((board[4] == 'X' && board[5] =='X' && board[6]=='X')||(board[4] == '0' && board[5] =='0' && board[6]=='0')) {
+			System.out.println("you win");	
+		}
+		else if((board[7] == 'X' && board[8] =='X' && board[9]=='X')||(board[7] == '0' && board[8] =='0' && board[9]=='0')) {
+			System.out.println("you win");	
+		}
+		else {
+			System.out.println("You lost");
+		}
+	}	
+	
 	public static char[] initializeBoard() { 
 		char[] board = new char[10];
 	    for (int i = 0; i < board.length; i++) { 
@@ -72,9 +101,10 @@ public class Tictactoe {
 	
 	public static void makeMove(char[] board) {
 		
+		for(int j=0;j<3;j++) {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Your move :");
 		int i;
+		System.out.println("Your move :");
 		int move = sc.nextInt();
 		
 		System.out.println("You have moved to your location: " + move);
@@ -84,8 +114,10 @@ public class Tictactoe {
 		else {
 			System.out.println("Invalid entry");
 		}
+		
 		showBoard(board);
 		
+		}
 	}
 	
 
