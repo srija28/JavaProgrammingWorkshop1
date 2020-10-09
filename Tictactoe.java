@@ -1,135 +1,206 @@
 package com.example;
 import java.util.Random;
 import java.util.*;
+import java.util.Arrays;
 
 
 public class Tictactoe {
 	static char[] board = new char[10];
-	static char player = 'X';
-	static char computer ='0';
+	static char player ;
+	static char computer ;
+	static Scanner sc = new Scanner(System.in);
+	
+	
 	
 	public static void main(String[] args) {
-		System.out.println("Welcome to TicTacToe");
-		char[] board = initializeBoard();
-		toss();
-		choosecoin();
-		showBoard(board);
-		makeMove(board);
-		
-		if((board[1] == 'X' && board[2] =='X' && board[3]=='X')||(board[1] == '0' && board[2] =='0' && board[3]=='0')) {
-			System.out.println("you win");	
-		}
-		else if((board[1] == 'X' && board[4] =='X' && board[7]=='X')||(board[1] == '0' && board[4] =='0' && board[7]=='0')){
-			System.out.println("you win");		
-		}
-		else if((board[1] == 'X' && board[5] =='X' && board[9]=='X')||(board[1] == '0' && board[5] =='0' && board[9]=='0')) {
-			System.out.println("you win");	
-		}
-		else if((board[3] == 'X' && board[5] =='X' && board[7]=='X')||(board[3] == '0' && board[5] =='0' && board[7]=='0')) {
-			System.out.println("you win");	
-		}
-		else if((board[2] == 'X' && board[5] =='X' && board[8]=='X')||(board[2] == '0' && board[5] =='0' && board[8]=='0')) {
-			System.out.println("you win");	
-		}
-		else if((board[3] == 'X' && board[6] =='X' && board[9]=='X')||(board[3] == '0' && board[6] =='0' && board[9]=='0')) {
-			System.out.println("you win");	
-		}
-		else if((board[4] == 'X' && board[5] =='X' && board[6]=='X')||(board[4] == '0' && board[5] =='0' && board[6]=='0')) {
-			System.out.println("you win");	
-		}
-		else if((board[7] == 'X' && board[8] =='X' && board[9]=='X')||(board[7] == '0' && board[8] =='0' && board[9]=='0')) {
-			System.out.println("you win");	
-		}
-		else {
-			System.out.println("You lost");
+		System.out.println("Welcome to the game");
+		Tictactoe game = new Tictactoe();
+		System.out.println("To play enter 1");
+		System.out.println("To exit enter 2");
+		int play = sc.nextInt();
+		if (play == 1) {
+			if (game.toss()) {
+				game.choosecoin();
+				game.playerTurn();
+			} else {
+				game.choosecoin();
+				game.computerTurn();
+			}
 		}
 	}	
 	
-	public static char[] initializeBoard() { 
-		char[] board = new char[10];
-	    for (int i = 0; i < board.length; i++) { 
-	            board[i] = ' '; 
-	    }
+	public char[] initializeBoard() { 
+		Arrays.fill(board, ' ');
 		return board;
+	}
+	
+	public Tictactoe() {
+		initializeBoard();
 	}
 	
 	public static void choosecoin() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter the coin you want (Should be either X or 0)");
-		char player = sc.next().charAt(0);
-		System.out.println("The player has chosen : "+player);
-		if(player=='0') {
-			System.out.println("The computer has chosen : X ");
-			player='X';
+		int flag =0;
+		while(flag==0) {
+			char coin = sc.next().charAt(0);
+			if(coin== '0' || coin == 'X') {
+				player = coin;
+				computer = player == '0' ? 'X' : '0';
+				flag = 1;
+			}
+			else {
+				System.out.println("Enter the proper coin");
+			}		
 		}
-		else {
-			System.out.println("The computer has chosen : O ");
-			
-		}
-	}
-	
-	public static void toss() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Choose heads or tails 1 for heads and 2 for tails");
-		int chosen = sc.nextInt();
-		 Random r = new Random();
-		 System.out.println(r);
-		   int chance = r.nextInt(2);
-		   if (chance == 1) {
-		      System.out.println("You flipped tails");
-		   } else {
-			   System.out.println("You flipped heads");
-		   }
-		   if(chosen==chance) {
-			   System.out.println("the Player won the toss");
-		   }
-		   else {
-			   System.out.println("The computer win the toss");
-		   }
+		System.out.println("Player :" + player);
+		System.out.println("Computer : " + computer);
 		
 	}
 	
-	public static void showBoard(char[] board) {
-		  
+	public boolean toss() {
+		int toss = (int) Math.floor(Math.random() * 10) % 2;
+		if (toss == 0) {
+			System.out.println("The first move is users");
+			return true;
+		} else {
+			System.out.println("The first move is computers");
+			return false;
+		}
+	}
+	
+	public boolean winnerCondition(char ch) {
+		if ((board[1] == ch && board[2] == ch && board[3] == ch) || (board[4] == ch && board[5] == ch && board[6] == ch)
+				|| (board[7] == ch && board[8] == ch && board[9] == ch)
+				|| (board[1] == ch && board[5] == ch && board[9] == ch)
+				|| (board[3] == ch && board[5] == ch && board[7] == ch)
+				|| (board[1] == ch && board[4] == ch && board[7] == ch)
+				|| (board[2] == ch && board[5] == ch && board[8] == ch)
+				|| (board[3] == ch && board[6] == ch && board[9] == ch)) {
+			System.out.println("You win");
+			return true;
+		} else
+			return false;
+	}
+	 
+	public boolean drawCondition() {
+		for (int i = 1; i < 10; i++) {
+			if (board[i] == ' ') {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public void showBoard() {  
             System.out.println("\n "+board[1]+ " | "+board[2]+ " | "+board[3]);
             System.out.println("-----------");
             System.out.println(" "+board[4]+ " | "+board[5]+ " | "+board[6]);
             System.out.println("-----------");
-            System.out.println(" "+board[7]+ " | "+board[8]+ " | "+board[9]);
-    	
-		
+            System.out.println(" "+board[7]+ " | "+board[8]+ " | "+board[9]);	
 	}
 	
-	public static void makeMove(char[] board) {
+	public boolean isAvailable(int position) {
+		if (board[position] == ' ' && position >= 1 && position < 10)
+			return true;
+		else
+			return false;
+	}
+	
+	public int ifPossibleToWin(char ch) {
+		if (isAvailable(1) && ((board[2] == ch && board[3] == ch) || (board[4] == ch && board[7] == ch)
+				|| (board[5] == ch && board[9] == ch)))
+			return 1;
 		
-		for(int j=0;j<3;j++) {
-		Scanner sc = new Scanner(System.in);
-		int i;
-		System.out.println("Your move :");
-		int move = sc.nextInt();
-		System.out.println("You have moved to your location: " + move);
-		if(board[move]==' ') {
-			board[move]= player;
-		}
-		else {
-			System.out.println("Invalid entry");
-		}
+		if (isAvailable(2) && ((board[1] == ch && board[3] == ch) || (board[5] == ch && board[8] == ch)))
+			return 2;
 		
-		showBoard(board);
-		System.out.println("Computer move :");
-		int computermove = sc.nextInt();
-		System.out.println("You have moved to your location: " + move);
-		if(board[computermove]==' ') {
-			board[computermove]= computer;
-		}
-		else {
-			System.out.println("Invalid entry");
-		}
+		if (isAvailable(3) && ((board[2] == ch && board[1] == ch) || (board[6] == ch && board[9] == ch)
+				|| (board[5] == ch && board[7] == ch)))
+			return 3;
 		
-		showBoard(board);
+		if (isAvailable(4) && ((board[1] == ch && board[7] == ch) || (board[5] == ch && board[6] == ch)))
+			return 4;
 		
+		if (isAvailable(5) && ((board[1] == ch && board[9] == ch) || (board[3] == ch && board[7] == ch)
+				|| (board[2] == ch && board[8] == ch) || (board[4] == ch && board[6] == ch)))
+			return 5;
+		
+		if (isAvailable(6) && ((board[3] == ch && board[9] == ch) || (board[5] == ch && board[4] == ch)))
+			return 6;
+		
+		if (isAvailable(7) && ((board[1] == ch && board[4] == ch) || (board[9] == ch && board[8] == ch)
+				|| (board[5] == ch && board[3] == ch)))
+			return 7;
+		
+		if (isAvailable(8) && ((board[2] == ch && board[5] == ch) || (board[7] == ch && board[9] == ch)))
+			return 8;
+		
+		if (isAvailable(9) && ((board[7] == ch && board[8] == ch) || (board[3] == ch && board[6] == ch)
+				|| (board[5] == ch && board[1] == ch)))
+			return 9;
+		
+		else
+			return 0;
+
+	}
+	
+	public void playerMove() {
+		int flag = 0;
+		while (flag == 0) {
+			System.out.println("Enter position : ");
+			int position = sc.nextInt();
+			if (isAvailable(position)) {
+				System.out.println("Your Mark has been placed at position " + position);
+				board[position] = player;
+				flag = 1;
+			} else
+				System.out.println("This Position is not vacant");
 		}
 	}
 	
+	public int blockPlayer() {
+		int position = ifPossibleToWin(player);
+		if (position == 0) {
+			int flag = 0;
+			while (flag == 0) {
+				position = ((int) Math.floor(Math.random() * 10) % 9) + 1;
+				if (isAvailable(position))
+					flag = 1;
+			}
+		}
+		return position;
+	}
+	
+	public void computerMove() {
+		int position = ifPossibleToWin(computer);
+		if (position == 0) {
+			position = blockPlayer();
+		}
+		System.out.println("Computer Mark has been placed at position " + position);
+		board[position] = computer;
+	}
+	
+	public void playerTurn() {
+		playerMove();
+		showBoard();
+		if (winnerCondition(player)) {
+			System.out.println("Player has won");
+		} else if (drawCondition())
+			System.out.println("Its a draw.");
+		else
+			computerTurn();
+	}
+	
+	public void computerTurn() {
+		computerMove();
+		showBoard();
+		if (winnerCondition(computer)) {
+			System.out.println("Computer has won");
+		} else if (drawCondition())
+			System.out.println("Its a draw.");
+		else
+			playerTurn();
+	}
 
 }
