@@ -151,25 +151,40 @@ public class Tictactoe {
 			System.out.println("Enter position : ");
 			int position = sc.nextInt();
 			if (isAvailable(position)) {
-				System.out.println("Your Mark has been placed at position " + position);
+				System.out.println("Your Coin has been placed at position " + position);
 				board[position] = player;
 				flag = 1;
 			} else
-				System.out.println("This Position is not vacant");
+				System.out.println("This Position is not empty");
 		}
 	}
 	
 	public int blockPlayer() {
 		int position = ifPossibleToWin(player);
 		if (position == 0) {
-			int flag = 0;
-			while (flag == 0) {
-				position = ((int) Math.floor(Math.random() * 10) % 9) + 1;
-				if (isAvailable(position))
+			position = takeCorner();
+			}
+		return position;
+	}
+	
+	public int takeCorner() {
+		if(isAvailable(1))
+			return 1;
+		else if(isAvailable(3))
+			return 3;
+		else if(isAvailable(7))
+			return 7;
+		else if(isAvailable(9))
+			return 9;
+		else {
+			int flag = 0, position = 0;
+			while(flag == 0) {
+				 position = ((int)Math.floor(Math.random()* 10) % 9) + 1;
+				if(isAvailable(position))
 					flag = 1;
 			}
-		}
-		return position;
+			return position;
+		}	
 	}
 	
 	public void computerMove() {
