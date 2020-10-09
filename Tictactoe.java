@@ -6,6 +6,7 @@ import java.util.*;
 public class Tictactoe {
 	static char[] board = new char[10];
 	static char player = 'X';
+	static char computer ='0';
 	
 	public static void main(String[] args) {
 		System.out.println("Welcome to TicTacToe");
@@ -106,10 +107,20 @@ public class Tictactoe {
 		int i;
 		System.out.println("Your move :");
 		int move = sc.nextInt();
-		
 		System.out.println("You have moved to your location: " + move);
 		if(board[move]==' ') {
 			board[move]= player;
+		}
+		else {
+			System.out.println("Invalid entry");
+		}
+		
+		showBoard(board);
+		System.out.println("Computer move :");
+		int computermove = sc.nextInt();
+		System.out.println("You have moved to your location: " + move);
+		if(board[computermove]==' ') {
+			board[computermove]= computer;
 		}
 		else {
 			System.out.println("Invalid entry");
