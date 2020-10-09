@@ -177,7 +177,7 @@ public class Tictactoe {
 		else if(isAvailable(9))
 			return 9;
 		else 
-			return centerPosition;	
+			return centerPosition();	
 	}
 	
 	public int centerPosition() {
